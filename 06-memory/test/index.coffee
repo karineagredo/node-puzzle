@@ -6,7 +6,7 @@ describe 'reader', ->
   describe 'countryIpCounter()', ->
 
     it 'should be memory efficient', (done) ->
-      heapUsageBefore = process.memoryUsage().heapUsed
+      heapUsageBefore = process.memoryUsage().heapUsed;
       reader = require '../lib'
       reader.countryIpCounter 'RU', (err, result) ->
         if err then return done err
@@ -14,7 +14,7 @@ describe 'reader', ->
         assert.equal result, 139092612
 
         heapUsageAfter = process.memoryUsage().heapUsed
-        heapUsageIncrease = heapUsageAfter / heapUsageBefore
+        heapUsageIncrease = heapUsageAfter / heapUsageBefore;
         assert heapUsageIncrease < 4, "Your heap memory usage increased more than 4 times"
 
         done()
