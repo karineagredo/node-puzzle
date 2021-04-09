@@ -1,6 +1,5 @@
 assert = require 'assert'
-WordCount = require '../lib'
-
+WordCount = require '../lib/index.js'
 
 helper = (input, expected, done) ->
   pass = false
@@ -25,6 +24,20 @@ describe '10-word-count', ->
   it 'should count a single word', (done) ->
     input = 'test'
     expected = words: 1, lines: 1
+    helper input, expected, done
+
+  it 'should count camelCase as two words', (done) ->
+    input = 'BrownFox'
+    expected = words: 2, lines: 1
+    helper input, expected, done
+  it 'should not count @$%sfs as a word', (done) ->
+    input = 'My Test @$%sfs '
+    expected = words: 2, lines: 1
+    helper input, expected, done
+
+  it 'count number of lines', (done) ->
+    input = 'this is \n a lovely test'
+    expected = words: 5, lines: 2
     helper input, expected, done
 
   it 'should count words in a phrase', (done) ->
