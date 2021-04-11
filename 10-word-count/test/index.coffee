@@ -1,9 +1,9 @@
 assert = require 'assert'
-WordCount = require '../lib/index.js'
+WordCounterSecondApproach = require '../lib/Approach2.js'
 
 helper = (input, expected, done) ->
   pass = false
-  counter = new WordCount()
+  counter = new WordCounterSecondApproach()
 
   counter.on 'readable', ->
     return unless result = this.read()
@@ -26,12 +26,28 @@ describe '10-word-count', ->
     expected = words: 1, lines: 1
     helper input, expected, done
 
-  it 'should count camelCase as two words', (done) ->
-    input = 'BrownFox'
-    expected = words: 2, lines: 1
+  it 'should count PascalCase as three words', (done) ->
+    input = 'BrownFoxTest'
+    expected = words: 3, lines: 1
     helper input, expected, done
+
+  it 'should count word that starts with a number as a single word', (done) ->
+    input = '5BrownFoxTest'
+    expected = words: 1, lines: 1
+    helper input, expected, done
+
+  it 'is word doesnt start with a capital letter then it is not PascalCase', (done) ->
+    input = 'brownFoxTest'
+    expected = words: 1, lines: 1
+    helper input, expected, done
+
+  it 'should not count word with special character _', (done) ->
+    input = 'special_test'
+    expected = words: 0, lines: 1
+    helper input, expected, done
+
   it 'should not count @$%sfs as a word', (done) ->
-    input = 'My Test @$%sfs '
+    input = 'My Test @$%sfs'
     expected = words: 2, lines: 1
     helper input, expected, done
 
@@ -46,8 +62,8 @@ describe '10-word-count', ->
     helper input, expected, done
 
   it 'should count quoted characters as a single word', (done) ->
-    input = '"this is one word!"'
-    expected = words: 1, lines: 1
+    input = 'Expected to have seven words because "this is one word!"'
+    expected = words: 7, lines: 1
     helper input, expected, done
 
   # !!!!!

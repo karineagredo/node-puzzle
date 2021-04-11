@@ -1,6 +1,9 @@
 const { Transform } = require('stream');
 const inherits = require('util').inherits;
 
+// This is the initial approach to the challenge.
+// The regex 'regExp' filters all special characters and returns the transformed words which is undesirable
+// The file Approach2.js is the second attempt to solve the challenge
 function WordCounter() {
   Transform.call(this, { objectMode: true });
 }
